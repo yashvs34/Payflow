@@ -2,9 +2,9 @@ const express = require('express');
 const zod = require('zod');
 const jwt = require('jsonwebtoken');
 const {hashPassword} = require('../passwordHashing');
-const { User } = require('../db');
+const { User, Account } = require('../db');
 const {JWT_SECRET} = require('../config');
-const router = require('./mainRouter');
+const {router} = require('./mainRouter');
 
 const userRouter = express.Router();
 
@@ -46,6 +46,12 @@ userRouter.post('/signup', async (req, res) => {
     body.password = hashPassword(body.password);
 
     const dbUser = await User.create(body);
+    const userId = user._id;
+
+    await Account.create({
+        userId,
+        balance : 1 + Math.random() * 10000
+    })
 
     const token = jwt.sign({
         userId :  dbUser
@@ -144,4 +150,4 @@ userRouter.get('/bulk', async (req, res) => {
     });
 });
 
-module.exports = userRouter;
+module.exports = {userRouter};

@@ -27,13 +27,13 @@ userRouter.post('/signup', async (req, res) => {
 
     const user = User.findOne({
         userName : body.userName
-    })
+    });
 
     if (user._id)
     {
         return res.status(411).json({
             message : "Email already taken"
-        })
+        });
     }
 
     const dbUser = await User.create(body);

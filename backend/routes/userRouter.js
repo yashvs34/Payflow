@@ -1,8 +1,10 @@
 const express = require('express');
 const zod = require('zod');
 const jwt = require('jsonwebtoken');
+const {hashPassword} = require('../passwordHashing');
 const { User } = require('../db');
 const {JWT_SECRET} = require('../config');
+const router = require('./mainRouter');
 
 const userRouter = express.Router();
 
@@ -12,6 +14,11 @@ const signupSchema = zod.object({
     firstName : zod.string(),
     lastName : zod.string()
 })
+
+const signinSchema = zod.object({
+    userName : zod.string().email(),
+    password : zod.string().min(6)
+});
 
 userRouter.post('/signup', async (req, res) => {
     const body = req.body;
@@ -36,6 +43,8 @@ userRouter.post('/signup', async (req, res) => {
         });
     }
 
+    body.password = hashPassword(body.password);
+
     const dbUser = await User.create(body);
 
     const token = jwt.sign({
@@ -51,26 +60,88 @@ userRouter.post('/signup', async (req, res) => {
 userRouter.post('/signin', async (req, res) => {
    const body = req.body;
 
-   const user = await User.findOne({
+    const {success} = signinSchema.safeParse(body);
+
+    if (!success)
+    {
+        return res.status(411).json({
+            message : "Invalid Inputs"
+        });
+    }
+
+    body.password = hashPassword(body.password);
+
+   const dbUser = await User.findOne({
     userName : body.userName,
     password : body.password
    });
 
-   if (user === null)
+   if (dbUser == null)
    {
-    res.status(411).json({
-        message : "Invalid email or password"
+    return res.status(411).json({
+        message : "Invalid userName or password"
     });
    }
 
    const token = jwt.sign({
-    userId : user.userName
-   });
+    userId : dbUser._id
+   }, JWT_SECRET);
 
    res.json({
     message : "Logged in",
     token : token
    });
+});
+
+const updateBody = zod.object({
+    password : zod.string().optional(),
+    firstName : zod.string().optional(),
+    lastName : zod.string().optional()
+})
+
+router.put('/', authMiddleware, async (req, res) => {
+    const body = req.body;
+
+    const {success} = updateBody.safeParse(body);
+
+    if (!success)
+    {
+        res.status(411).json({
+            message : "Error while updating information"
+        });
+    }
+
+    await User.updateOne(body, {
+        id : User.userId
+    });
+
+    res.json({
+        message : "Updated successfully"
+    });
+});
+
+userRouter.get('/bulk', async (req, res) => {
+    const filter = req.query.filter || "";
+
+    const users = await User.find({
+        $or : [
+            {firstName : {
+                '$regex' : filter
+            }},
+            {lastName : {
+                '$regex' : filter
+            }}
+        ]
+    });
+
+    res.json({
+        user : users.map(user => ({
+            userName : user.userName,
+            firstName : user.firstName,
+            lastName : user.lastName,
+            _id : user._id
+        }))
+    });
 });
 
 module.exports = userRouter;

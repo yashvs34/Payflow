@@ -1,24 +1,18 @@
 const express = require('express');
 const zod = require('zod');
 const jwt = require('jsonwebtoken');
-const {hashPassword} = require('../passwordHashing');
+const {hashPassword, verifyPassword} = require('../passwordHashing');
 const { User, Account } = require('../db');
 const {JWT_SECRET} = require('../config');
-const {router} = require('./mainRouter');
 
 const userRouter = express.Router();
 
 const signupSchema = zod.object({
     userName : zod.string().email(),
     password : zod.string().min(6),
-    firstName : zod.string(),
-    lastName : zod.string()
+    firstName : zod.string().min(1),
+    lastName : zod.string().min(1)
 })
-
-const signinSchema = zod.object({
-    userName : zod.string().email(),
-    password : zod.string().min(6)
-});
 
 userRouter.post('/signup', async (req, res) => {
     const body = req.body;
@@ -32,35 +26,35 @@ userRouter.post('/signup', async (req, res) => {
         });
     }
 
-    const user = User.findOne({
+    const user = await User.findOne({
         userName : body.userName
     });
 
-    if (user._id)
+    if (user)
     {
         return res.status(411).json({
             message : "Email already taken"
         });
     }
 
-    body.password = hashPassword(body.password);
+    body.password = await hashPassword(body.password);
 
     const dbUser = await User.create(body);
-    const userId = user._id;
+    const userId = dbUser._id;
 
     await Account.create({
         userId,
         balance : 1 + Math.random() * 10000
     })
 
-    const token = jwt.sign({
-        userId :  dbUser
-    }, JWT_SECRET);
-
     res.json({
         message : "User created successfully",
-        token : token
     });
+});
+
+const signinSchema = zod.object({
+    userName : zod.string().email(),
+    password : zod.string().min(6)
 });
 
 userRouter.post('/signin', async (req, res) => {
@@ -75,17 +69,23 @@ userRouter.post('/signin', async (req, res) => {
         });
     }
 
-    body.password = hashPassword(body.password);
-
    const dbUser = await User.findOne({
-    userName : body.userName,
-    password : body.password
+    userName : body.userName
    });
 
    if (dbUser == null)
    {
     return res.status(411).json({
-        message : "Invalid userName or password"
+        message : "Invalid userName"
+    });
+   }
+
+   const isTrue = await verifyPassword(dbUser.password, body.password);
+
+   if (!isTrue)
+   {
+    return res.status(411).json({
+        message : "Invalid password"
     });
    }
 
@@ -97,33 +97,6 @@ userRouter.post('/signin', async (req, res) => {
     message : "Logged in",
     token : token
    });
-});
-
-const updateBody = zod.object({
-    password : zod.string().optional(),
-    firstName : zod.string().optional(),
-    lastName : zod.string().optional()
-})
-
-router.put('/', authMiddleware, async (req, res) => {
-    const body = req.body;
-
-    const {success} = updateBody.safeParse(body);
-
-    if (!success)
-    {
-        res.status(411).json({
-            message : "Error while updating information"
-        });
-    }
-
-    await User.updateOne(body, {
-        id : User.userId
-    });
-
-    res.json({
-        message : "Updated successfully"
-    });
 });
 
 userRouter.get('/bulk', async (req, res) => {
@@ -139,6 +112,13 @@ userRouter.get('/bulk', async (req, res) => {
             }}
         ]
     });
+
+    if (users.length < 1)
+    {
+        return res.json({
+            message : "No users found"
+        })
+    }
 
     res.json({
         user : users.map(user => ({

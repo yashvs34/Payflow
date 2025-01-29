@@ -1,11 +1,39 @@
 const express = require('express');
 const zod = require('zod');
-import {userRouter} from './userRouter';
-import {accountRouter} from './accounRouter';
+const {userRouter} = require('./userRouter');
+const {accountRouter} = require('./accounRouter');
+const {authMiddleware} = require('../middleware');
 
-const router = express.Router();
+const mainRouter = express.Router();
 
-router.use('/user', userRouter);
-router.use('/account', accountRouter);
+mainRouter.use('/user', userRouter);
+mainRouter.use('/account', accountRouter);
 
-module.exports = {router};
+const updateBody = zod.object({
+    password : zod.string().optional(),
+    firstName : zod.string().optional(),
+    lastName : zod.string().optional()
+})
+
+mainRouter.put('/', authMiddleware, async (req, res) => {
+    const body = req.body;
+
+    const {success} = updateBody.safeParse(body);
+
+    if (!success)
+    {
+        res.status(411).json({
+            message : "Error while updating information"
+        });
+    }
+
+    await User.updateOne(body, {
+        id : User.userId
+    });
+
+    res.json({
+        message : "Updated successfully"
+    });
+});
+
+module.exports = {mainRouter};

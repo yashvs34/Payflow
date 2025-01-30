@@ -1,13 +1,14 @@
 import { Route, Routes, BrowserRouter } from "react-router-dom"
-// import {Signin} from './pages/Signin' 
+import {Signin} from './pages/Signin' 
 import {Signup} from './pages/Signup' 
 // import {Dashboard} from './pages/Dashboard' 
-// import {SendMoney} from './pages/SendMoney'
+import {SendMoney} from './pages/SendMoney'
 
 function App() {
 
   return (
     <>
+    <SendMoney label = {"Devraj"} />
       {/* <BrowserRouter>
         <Routes>
           <Route path = "/signin" element = {<Signin/>} ></Route>

@@ -10,7 +10,7 @@ async function connection ()
     }
     catch (e)
     {
-        console.error(r);
+        console.error(e);
     }
 }
 

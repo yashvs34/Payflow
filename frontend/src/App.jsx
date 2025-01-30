@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-    <SendMoney label = {"Devraj"} />
+    <Signup />
       {/* <BrowserRouter>
         <Routes>
           <Route path = "/signin" element = {<Signin/>} ></Route>

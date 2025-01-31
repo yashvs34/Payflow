@@ -1,11 +1,13 @@
-import { LinkText } from "./LinkText"
+import { Link } from "react-router-dom"
 
-export function BottomWarning ({text, linkText, url})
+export function BottomWarning ({label, buttonText, to})
 {
     return (
         <div className = "flex" >
-            <div>{text}</div>
-            <LinkText linktext = {linkText} url = {url} />
+            <div>{label}</div>
+            <Link className="pointer underline pl-1 cursor-pointer" to={to}>
+                {buttonText}
+            </Link>
         </div>
     )
 }

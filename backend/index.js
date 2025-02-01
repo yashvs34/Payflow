@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use('/', mainRouter);
+app.use('/api/v1', mainRouter);
 
 const port = 3000;
 app.listen(port, () => {

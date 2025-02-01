@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import {SearchBar} from './SearchBar'
 
 export function Users ()
 {
@@ -19,7 +20,8 @@ export function Users ()
 
     return (
         <div>
-            {users.map((user) => <User user = {user} key = {user._id} />)}
+            <SearchBar setFilter = {setfilter} />
+            {users == null ? <></> : users.map((user) => <User user = {user} key = {user._id} />)}
         </div>
     )
 }
@@ -31,7 +33,7 @@ function User ({user})
             <div>
                 {user.firstName} {user.lastName}
             </div>
-            <Link to = {'/SendMoney'} className = 'flex justify-center border border-black rounded-md w-[120px] bg-black text-white cursor-pointer' >
+            <Link to = {`/sendmoney?id=${user._id}&name=${user.firstName}`} className = 'flex justify-center border border-black rounded-md w-[120px] bg-black text-white cursor-pointer' >
                 Send Money
             </Link>
         </div>

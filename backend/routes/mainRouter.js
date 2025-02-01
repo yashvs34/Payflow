@@ -22,7 +22,7 @@ mainRouter.put('/', authMiddleware, async (req, res) => {
 
     if (!success)
     {
-        res.status(411).json({
+        res.json({
             message : "Error while updating information"
         });
     }

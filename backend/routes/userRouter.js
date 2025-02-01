@@ -21,7 +21,7 @@ userRouter.post('/signup', async (req, res) => {
 
     if (!success)
     {
-        return res.status(411).json({
+        return res.json({
             message : "Incorrect inputs"
         });
     }
@@ -32,7 +32,7 @@ userRouter.post('/signup', async (req, res) => {
 
     if (user)
     {
-        return res.status(411).json({
+        return res.json({
             message : "Email already taken"
         });
     }
@@ -64,7 +64,7 @@ userRouter.post('/signin', async (req, res) => {
 
     if (!success)
     {
-        return res.status(411).json({
+        return res.json({
             message : "Invalid Inputs"
         });
     }
@@ -75,7 +75,7 @@ userRouter.post('/signin', async (req, res) => {
 
    if (dbUser == null)
    {
-    return res.status(411).json({
+    return res.json({
         message : "Invalid userName"
     });
    }
@@ -84,7 +84,7 @@ userRouter.post('/signin', async (req, res) => {
 
    if (!isTrue)
    {
-    return res.status(411).json({
+    return res.json({
         message : "Invalid password"
     });
    }

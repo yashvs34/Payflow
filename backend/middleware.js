@@ -8,7 +8,7 @@ function authMiddleware (req, res, next)
     if (!authHeader || !authHeader.startsWith('Bearer '))
     {
         return res.json({
-            messgae : "Invalid token"
+            message : "Invalid token"
         });
     }
 

@@ -7,14 +7,11 @@ export function Balance ()
 
     async function handler ()
     {
-        const respone = await axios.get('http://localhost:3000/api/v1/account/balance', {
-            userId
-        }, {
-            Authorization : localStorage.getItem("token")
+        const respone = await axios.get('http://localhost:3000/api/v1/account/balance',{
+            headers : {authorization : localStorage.getItem("token")}
         });
         
         setBalance(respone.data.balance);
-        console.log(respone.data);
     }
 
     useEffect(() => {

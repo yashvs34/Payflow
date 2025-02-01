@@ -16,21 +16,21 @@ export function Signup ()
     const navigate = useNavigate();
 
     return (
-        <div className = 'bg-gray-400 h-screen flex justify-center items-center' >
-            <div className = 'bg-white flex h-[450px] flex-col items-center justify-center w-[400px] border border-black shadow-2xl shadow-gray-500 rounded-2xl'>
-                <Heading label = {"Signup"} />
+        <div className = 'h-screen flex justify-center items-center' >
+            <div className = 'bg-white flex h-[450px] flex-col items-center justify-center w-[400px] border shadow-sm shadow-gray-500 rounded-2xl'>
+                <Heading label = {"Sign up"} />
                 <InputBox onChange = {(e) => {
                     setUserName(e.target.value);
-                }} label = {"Enter username/email"} placeholder = {"abc@gmail.com"} />
+                }} label = {""} placeholder = {"Enter username/email"} />
                 <InputBox onChange = {(e) => {
                     setFirstName(e.target.value);
-                }} label = {"Enter Firstname"} placeholder = {"John..."} />
+                }} label = {""} placeholder = {"Enter Firstname"} />
                 <InputBox onChange = {(e) => {
                     setLastName(e.target.value);
-                }} label = {"Enter Lastname"} placeholder = {"Jacobs..."} />
+                }} label = {""} placeholder = {"Enter Lastname"} />
                 <InputBox onChange = {(e) => {
                     setPassword(e.target.value);
-                }} label = {"Enter password"} placeholder = {"abcd..."} />
+                }} label = {""} placeholder = {"Enter password"} />
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>
                 <Button onClick={async () => {
                     const response = await axios.post('http://localhost:3000/api/v1/user/signup', {
@@ -46,8 +46,8 @@ export function Signup ()
                     {
                         navigate('/signin');
                     }
-                }} label = {"Signup"} />
-                <BottomWarning label = {"Already have an account?"} buttonText = {"Signin"} to = {"/signin"} />
+                }} label = {"Sign up"} />
+                <BottomWarning label = {"Already have an account?"} buttonText = {"Sign in"} to = {"/signin"} />
             </div>
         </div>
     )

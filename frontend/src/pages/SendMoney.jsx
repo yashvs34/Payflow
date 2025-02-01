@@ -9,23 +9,24 @@ import axios from 'axios'
 export function SendMoney ()
 {
     const [queryParams] = useSearchParams();
-    const name = queryParams.get("name");
+    const firstName = queryParams.get("firstName");
+    const lastName = queryParams.get("lastName");
     const id = queryParams.get("id");
     const [amount, setAmount] = useState(0);
     const [message, setMessage] = useState("");
     const navigate = useNavigate();
 
     return (
-        <div className = 'bg-gray-400 h-screen flex justify-center items-center'>
-            <div className = 'bg-white h-[300px] flex flex-col justify-center items-center border border-black shadow-2xl shadow-gray-500 rounded-2xl' >
+        <div className = 'h-screen flex justify-center items-center'>
+            <div className = 'bg-white h-[400px] flex flex-col justify-center items-center border shadow-sm shadow-gray-500 rounded-2xl' >
                 <Heading label = {"Send Money"} />
-                <div className = 'w-[200px] flex p-2' >
-                    <FriendLogo label = {name[0].toUpperCase()} />
-                    <SubHeading label = {name} />
+                <div className = 'w-[400px] flex justify-center p-2' >
+                    <FriendLogo label = {firstName[0].toUpperCase()} />
+                    <SubHeading label = {`${firstName} ${lastName}`} />
                 </div>
                 <InputBox onChange={(e) => {
                     setAmount(e.target.value);
-                }} label = {"Amount(in Rs.)"} placeholder = {"Enter amount to send"} />
+                }} label = {""} placeholder = {"Amount(in Rs.)"} />
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>
                 <div className='h-[100px] flex flex-col justify-center items-center'>
                     <button onClick={async () => {
@@ -41,16 +42,16 @@ export function SendMoney ()
                         if (response.data.message === 'Transfer successful')
                         {
                             navigate(-1);
-                            alert("Transfer successful");
+                            alert("Transaction successful");
                         }
 
                         setMessage(response.data.message);
-                    }} className = "bg-black text-white border rounded-md pr-7 pl-7 transition-transform transform hover:scale-105 w-[200px] h-[30px]" >
+                    }} className = "focus:outline-blue-900 bg-blue-500 text-white font-semibold text-sm border rounded-md px-7 my-2 hover:bg-blue-600 duration-150 w-[200px] h-[40px]" >
                         {"Initiate Transfer"}
                     </button>
                     <button onClick = {() => {
                         navigate(-1);
-                    }} className='text-white bg-red-600 border border-red-600 rounded-md w-[150px] flex justify-center items-center hover:scale-105 duration-200'>Cancel</button>
+                    }} className='focus:outline-red-700 text-white bg-red-500 font-semibold text-sm border rounded-md w-[200px] h-[40px] flex justify-center items-center hover:bg-red-600 duration-150'>Cancel</button>
                 </div>
             </div>
         </div>

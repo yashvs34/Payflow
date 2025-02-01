@@ -1,22 +1,53 @@
-import {useSearchParams} from "react-router-dom"
+import { useState } from "react";
+import {useNavigate, useSearchParams} from "react-router-dom"
 
 export function Appbar ()
 {
-    const [queryParams] = useSearchParams(); 
+    const [queryParams] = useSearchParams();
+    const [isHovered, setIsHovered] = useState(false);
 
     return (
-        <div className = "font-semibold flex justify-between items-center h-[50px] border border-b-4 border-gray-400" >
+        <div className = "font-semibold flex justify-between items-center h-[50px] border border-b-2 border-amber-400" >
             <div className = "pl-4" >
                 Payment App
             </div>
-            <div className = "flex pr-4 w-[120px] justify-around" >
+            <div className = "flex pr-4 w-[150px] justify-around" >
                 <div>
-                    Hello
+                    {isHovered ? <Logout/> : <Hello/>}
                 </div>
-                <div className = "w-[30px] border border-blue-700 rounded-full flex justify-center" >
+                <div onMouseEnter={() => {
+                    setIsHovered(true);
+                }} onMouseLeave={() => {
+                    setTimeout(() => {
+                        setIsHovered(false);
+                    }, 1000);
+                }} className = "cursor-pointer w-[30px] border border-blue-700 rounded-full flex justify-center hover:bg-blue-500 hover:text-white duration-100 group" >
                     {queryParams.get("name")[0].toUpperCase()}
                 </div>
             </div>
+        </div>
+    )
+}
+
+function Hello ()
+{
+    return (
+        <div className="bg-amber-300 w-[80px] rounded-md flex justify-center items-center">
+            Hello
+        </div>
+    )
+}
+
+function Logout ()
+{
+    const navigate = useNavigate();
+
+    return (
+        <div onClick={() => {
+            localStorage.removeItem("token");
+            window.location.href = "http://localhost:5173/signin";
+        }} className="cursor-pointer bg-red-500 text-white border rounded-md w-[80px] flex justify-center items-center">
+            Logout
         </div>
     )
 }

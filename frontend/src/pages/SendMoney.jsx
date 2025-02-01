@@ -23,18 +23,27 @@ export function SendMoney ()
                     <FriendLogo label = {name[0].toUpperCase()} />
                     <SubHeading label = {name} />
                 </div>
-                <InputBox label = {"Amount(in Rs.)"} placeholder = {"Enter amount to send"} />
+                <InputBox onChange={(e) => {
+                    setAmount(e.target.value);
+                }} label = {"Amount(in Rs.)"} placeholder = {"Enter amount to send"} />
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>
                 <div className='h-[100px] flex flex-col justify-center items-center'>
                     <button onClick={async () => {
                         const response = await axios.post('http://localhost:3000/api/v1/account/transfer', {
-                            body : {to: id,
-                            amount : parseInt(amount)}
-                        }, {
+                            body : {
+                                        to: id,
+                                        amount : parseInt(amount)
+                                    }}, {
                             headers : {
                             Authorization : localStorage.getItem("token")
                         }})
-    
+
+                        if (response.data.message === 'Transfer successful')
+                        {
+                            navigate(-1);
+                            alert("Transfer successful");
+                        }
+
                         setMessage(response.data.message);
                     }} className = "bg-black text-white border rounded-md pr-7 pl-7 transition-transform transform hover:scale-105 w-[200px] h-[30px]" >
                         {"Initiate Transfer"}

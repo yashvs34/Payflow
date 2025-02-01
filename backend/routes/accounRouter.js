@@ -17,20 +17,20 @@ accountRouter.get('/balance', authMiddleware, async (req, res) => {
 
 accountRouter.post('/transfer', authMiddleware, async (req, res) => {
     const session = await mongoose.startSession();
-
+    
     session.startTransaction(); 
-    const { amount, to } = req.body;
-
+    const { amount, to } = req.body.body;
+    
     const account = await Account.findOne({ userId: req.userId }).session(session);
-
+    
     if (!account || account.balance < amount) {
         await session.abortTransaction();
-
+        
         return res.json({
             message: "Insufficient balance"
         });
     }
-
+    
     const toAccount = await Account.findOne({ userId: to }).session(session);
 
     if (!toAccount) {

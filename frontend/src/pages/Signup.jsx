@@ -21,16 +21,16 @@ export function Signup ()
                 <Heading label = {"Sign up"} />
                 <InputBox onChange = {(e) => {
                     setUserName(e.target.value);
-                }} label = {""} placeholder = {"Enter username/email"} />
+                }} type={"email"} label = {""} placeholder = {"Enter username/email"} />
                 <InputBox onChange = {(e) => {
                     setFirstName(e.target.value);
-                }} label = {""} placeholder = {"Enter Firstname"} />
+                }} type={"text"} label = {""} placeholder = {"Enter Firstname"} />
                 <InputBox onChange = {(e) => {
                     setLastName(e.target.value);
-                }} label = {""} placeholder = {"Enter Lastname"} />
+                }} type={"text"} label = {""} placeholder = {"Enter Lastname"} />
                 <InputBox onChange = {(e) => {
                     setPassword(e.target.value);
-                }} label = {""} placeholder = {"Enter password"} />
+                }} type={"password"} label = {""} placeholder = {"Enter password"} />
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>
                 <Button onClick={async () => {
                     const response = await axios.post('https://dummy-paytm.onrender.com/api/v1/user/signup', {

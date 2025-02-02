@@ -1,5 +1,6 @@
-const { JWT_SECRET } = require('./config');
+const JWT_SECRET = env.JWT_SECRET;
 const jwt = require('jsonwebtoken');
+const { env } = require('process');
 
 function authMiddleware (req, res, next)
 {

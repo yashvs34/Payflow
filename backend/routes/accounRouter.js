@@ -21,7 +21,7 @@ accountRouter.get('/balance', authMiddleware, async (req, res) => {
     });
 });
 
-const transferSchemaAmount = zod.number();
+const transferSchemaAmount = zod.number().min(1);
 
 accountRouter.post('/transfer', authMiddleware, async (req, res) => {
     const session = await mongoose.startSession();

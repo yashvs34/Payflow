@@ -44,7 +44,7 @@ function Logout ()
     return (
         <div onClick={() => {
             localStorage.removeItem("token");
-            navigate("https://dummy-paytm.vercel.app/signin");
+            navigate("https://dummy-paytm.vercel.app/signin", {replace: true});
         }} className="cursor-pointer bg-red-500 text-white border rounded-md w-[80px] flex justify-center items-center">
             Logout
         </div>

@@ -30,7 +30,7 @@ export function SendMoney ()
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>
                 <div className='h-[100px] flex flex-col justify-center items-center'>
                     <button onClick={async () => {
-                        const response = await axios.post('http://localhost:3000/api/v1/account/transfer', {
+                        const response = await axios.post('https://dummy-paytm.onrender.com/api/v1/account/transfer', {
                             body : {
                                         to: id,
                                         amount : parseInt(amount)

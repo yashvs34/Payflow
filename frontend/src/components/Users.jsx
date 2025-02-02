@@ -10,7 +10,7 @@ export function Users ()
 
     async function handler ()
     {
-        const tusers = await axios.get('http://localhost:3000/api/v1/user/bulk?filter=' + filter)
+        const tusers = await axios.get('https://dummy-paytm.onrender.com/api/v1/user/bulk?filter=' + filter)
         setUsers(tusers.data.user);
     }
 

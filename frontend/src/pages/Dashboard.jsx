@@ -13,7 +13,7 @@ export function Dashboard ()
 
     async function handler ()
     {
-        const response = await axios.get('http://localhost:3000/api/v1/account/balance',{
+        const response = await axios.get('https://dummy-paytm.onrender.com/api/v1/account/balance',{
             headers : {authorization : localStorage.getItem("token")}
         });
         

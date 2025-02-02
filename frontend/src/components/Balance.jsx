@@ -1,5 +1,3 @@
-import axios from "axios";
-import { useState, useEffect } from "react";
 
 export function Balance ({balance})
 {

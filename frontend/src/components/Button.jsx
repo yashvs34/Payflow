@@ -1,5 +1,4 @@
 
-
 export function Button ({label, onClick})
 {
     return (

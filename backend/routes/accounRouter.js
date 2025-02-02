@@ -2,7 +2,7 @@ const express = require('express');
 const zod = require('zod');
 const mongoose = require('mongoose');
 const { authMiddleware } = require('../middleware');
-const {Account} = require('../db');
+const {Account, User} = require('../db');
 
 const accountRouter = express.Router();
 
@@ -11,8 +11,13 @@ accountRouter.get('/balance', authMiddleware, async (req, res) => {
         userId : req.userId
     });
 
+    const user = await User.findOne({
+        _id : req.userId
+    });
+
     return res.json({
-        balance : account.balance
+        balance : account.balance,
+        firstName : user.firstName
     });
 });
 

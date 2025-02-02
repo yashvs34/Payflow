@@ -35,7 +35,7 @@ export function Signin ()
                     if (response.data.message === "Logged in")
                     {
                         localStorage.setItem("token", "Bearer " + response.data.token);
-                        navigate('/dashboard?name='+userName);
+                        navigate('/dashboard');
                     }
                     else
                     {

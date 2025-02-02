@@ -1,9 +1,8 @@
 import { useState } from "react";
-import {useNavigate, useSearchParams} from "react-router-dom"
+import {useNavigate} from "react-router-dom"
 
-export function Appbar ()
+export function Appbar ({firstName})
 {
-    const [queryParams] = useSearchParams();
     const [isHovered, setIsHovered] = useState(false);
 
     return (
@@ -22,7 +21,7 @@ export function Appbar ()
                         setIsHovered(false);
                     }, 1000);
                 }} className = "cursor-pointer w-[30px] border border-blue-700 rounded-full flex justify-center hover:bg-blue-500 hover:text-white duration-100 group" >
-                    {queryParams.get("name")[0].toUpperCase()}
+                    {firstName.length > 0 ? firstName[0].toUpperCase() : <></> }
                 </div>
             </div>
         </div>

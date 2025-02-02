@@ -8,7 +8,7 @@ app.use(express.json());
 
 app.use('/api/v1', mainRouter);
 
-const port = 3000;
+const port = process.env.PORT;
 app.listen(port, () => {
     console.log(`listening on ${port}`);
 });

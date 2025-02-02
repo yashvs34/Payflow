@@ -44,7 +44,7 @@ function Logout ()
     return (
         <div onClick={() => {
             localStorage.removeItem("token");
-            window.location.href = "https://dummy-paytm.vercel.app/signin";
+            window.location.href = "https://dummy-paytm.vercel.app/";
         }} className="cursor-pointer bg-red-500 text-white border rounded-md w-[80px] flex justify-center items-center">
             Logout
         </div>

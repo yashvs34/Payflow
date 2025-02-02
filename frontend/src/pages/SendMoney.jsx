@@ -24,7 +24,7 @@ export function SendMoney ()
                     <FriendLogo label = {firstName[0].toUpperCase()} />
                     <SubHeading label = {`${firstName} ${lastName}`} />
                 </div>
-                <InputBox onChange={(e) => {
+                <InputBox type={"number"} onChange={(e) => {
                     setAmount(e.target.value);
                 }} label = {""} placeholder = {"Amount(in Rs.)"} />
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>

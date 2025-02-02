@@ -21,7 +21,7 @@ export function Users ()
     return (
         <div>
             <SearchBar setFilter = {setfilter} />
-            <div className='grid grid-cols-2'>
+            <div className='grid grid-cols-1 lg:grid-cols-2'>
                 {users == null ? <></> : users.map((user) => <User user = {user} key = {user._id} />)}
             </div>
         </div>

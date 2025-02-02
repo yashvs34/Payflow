@@ -17,10 +17,10 @@ export function Signin ()
         <div className = 'bg-gray-50 h-screen flex justify-center items-center' >
             <div className = 'bg-white flex h-[400px] flex-col items-center justify-center w-[400px] border shadow-sm shadow-gray-500 rounded-2xl'>
                 <Heading label = {"Sign In"} />
-                <InputBox onChange={(e) => {
+                <InputBox type={"text"} onChange={(e) => {
                     setUserName(e.target.value);
                 }} label = {""} placeholder = {"Enter username/email"} />
-                <InputBox onChange={(e) => {
+                <InputBox type={"password"} onChange={(e) => {
                     setPassword(e.target.value);
                 }} label = {""} placeholder = {"Enter password"} />
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>

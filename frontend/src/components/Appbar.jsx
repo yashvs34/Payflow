@@ -31,7 +31,7 @@ export function Appbar ({firstName})
 function Hello ()
 {
     return (
-        <div className="bg-amber-300 w-[80px] rounded-md flex justify-center items-center">
+        <div className="opacity-0 md:opacity-100 bg-amber-300 w-[80px] rounded-md flex justify-center items-center">
             Hello
         </div>
     )

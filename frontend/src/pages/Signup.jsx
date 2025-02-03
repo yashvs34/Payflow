@@ -3,6 +3,7 @@ import {Button} from '../components/Button'
 import {Heading} from '../components/Heading'
 import {InputBox} from '../components/InputBox'
 import {BottomWarning} from '../components/BottomWarning'
+import { LoadComponent } from '../components/LoadComponent'
 import axios from 'axios'
 import { useNavigate } from 'react-router-dom'
 
@@ -13,6 +14,7 @@ export function Signup ()
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [message, setMessage] = useState("");
+    const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
 
     return (
@@ -32,13 +34,19 @@ export function Signup ()
                     setPassword(e.target.value);
                 }} type={"password"} label = {""} placeholder = {"Enter password"} />
                 <div className='text-red-600 font-semibold text-xs'>{message}</div>
+                {loading ? <LoadComponent label={"Creating your account..."} /> : <></>}
                 <Button onClick={async () => {
+
+                    setLoading(true);
+
                     const response = await axios.post('https://dummy-paytm.onrender.com/api/v1/user/signup', {
                         userName,
                         firstName,
                         lastName,
                         password
                     });
+
+                    setLoading(false);
 
                     setMessage(response.data.message);
 

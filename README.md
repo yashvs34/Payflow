@@ -1,5 +1,5 @@
 # WEBSITE
-[LINK](https://dummy-paytm.vercel.app)
+[DEPLOYMENT LINK](https://dummy-paytm.vercel.app)
 
 # DESCRIPTION
 * Users can signup and signin on the website

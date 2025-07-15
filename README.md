@@ -1,17 +1,57 @@
-# WEBSITE
-[DEPLOYMENT LINK](https://dummy-paytm.vercel.app)
+## WEBSITE
+[DEPLOYMENT LINK](https://dummy-paytm.vercel.app)  
+* **Please expect a delay of 40-50 seconds when signing in for the first time, due to cold start problem as it is deployed on free instance on render.**
 
-# DESCRIPTION
-* Users can signup and signin on the website
-* Users can send money to their friends or other people who have previously signed up on the platform
-* Frontend deployed on VERCEL and Backend on RENDER
+## ✨ FEATURES
+* Signup
+* Signin
+* Searching among already present users
+* Sending money to other users
 
-# ENDPOINTS
+## 🛠 TECH STACK
+**Frontend**
+- React.js
+- TailwindCSS
+
+**Backend**
+- Node.js
+- Express.js
+- Zod
+- JWT
+- Argon2
+
+**Database**
+- Mongoose
+- MongoDB
+
+## 🏗️ Architecture Overview
+<img width="1244" height="436" alt="image" src="https://github.com/user-attachments/assets/dbde964e-fd85-490e-855f-a8863003a10c" />
+
+## 🧑‍💻 Local Installation & Setup
+> ⚠️ Make sure to set up the `.env` file.  
+> .env file must contain **MONGODB_URL**, **JWT_SECRET** and **PORT**
+```bash
+cd backend        # Move to backend folder
+npm install       # Install required dependencies
+node index.js     # Start backend server on specified PORT in .env file (https://localhost:PORT)
+ 
+cd ..             # Move back to root folder
+cd frontend       # Move to frontend folder
+npm install       # Install required dependencies
+npm run dev       # Start frontend on port 5173 (https://localhost:5173)
+```
+
+
 ## API ENDPOINTS
-* **SIGNUP** - You can send requests to this endpoint where in the request body you will have to send an object having your Email as username, your firstname and lastname and the password which you want to set for your account and if your inputs are valid then you will be signed up and you will get a dummy balance by a random function.
+- You can signup and then signin
+- Your password will be stored in database after encrypting through Argon2 password hashing tool
+- After signing in, you can see all the users who have already signed up on the platform
+- You can also search for any specific user on the platform
+- You can click send money and it will redirect you to another page
+- In send money page, you can send money to the user by entering any valid number(it should be less than or equal to your current balance)
+- On dashboard page, you can also logout manually by hovering over top right corner of your profile and then clicking logout
 
-* **SIGNIN** - You can send requests to this endpoint where in the request body you will have to send an object having your Email as username and your password and if inputs are correct you will get a JWT token from the server, which will we automatically stored in your browser and it can be used for subsequent requests.
-
-* **DASHBOARD** - You can send requests to this endpoint where in the request body you don't have to send anything, it will automatically send the token stored in your browser and send it in header and you will see a list of users already present on platform.
-
-* **SEND MONEY** - If you click send money button, then you will be directed to a page where you have to enter a positive amount and then you can send money to that individual and after getting an alert for succesfull transaction, you will be automatically directed to Dashboard
+## Future Scope
+- Removing the name of user itself in dashboard
+- Actually using JWT for keeping user's session logged in
+- Removing prop-drilling(due to which if page reloads, error is shown) and using state management tools

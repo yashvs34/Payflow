@@ -1,7 +1,7 @@
-## WEBSITE
-[DEPLOYMENT LINK](https://dummy-paytm.vercel.app)  
-* **Please expect a delay of 40-50 seconds when signing in for the first time, due to cold start problem as it is deployed on free instance on render.**
+**Please expect a delay of 40-50 seconds when signing in for the first time, due to cold start problem as it is deployed on free instance on render.**
 
+## INTRODUCTION
+Full-Stack Payment Application where users can send money to each other
 
 ## ✨ FEATURES
 * Signup

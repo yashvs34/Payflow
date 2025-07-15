@@ -28,7 +28,8 @@
 
 
 ## 🏗️ ARCHITECTURE OVERVIEW
-<img width="1244" height="436" alt="image" src="https://github.com/user-attachments/assets/dbde964e-fd85-490e-855f-a8863003a10c" />
+<img width="831" height="263" alt="image" src="https://github.com/user-attachments/assets/3b565a2b-5b69-4065-9146-02b8cd884e0b" />
+
 
 
 ## 🧑‍💻 LOCAL INSTALLATION & SETUP

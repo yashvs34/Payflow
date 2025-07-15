@@ -26,6 +26,10 @@ Full-Stack Payment Application where users can send money to each other
 - Mongoose
 - MongoDB
 
+**Deployment**
+- Vercel(Frontend)
+- Render(Backend)
+
 
 ## 🏗️ ARCHITECTURE OVERVIEW
 <img width="831" height="263" alt="image" src="https://github.com/user-attachments/assets/3b565a2b-5b69-4065-9146-02b8cd884e0b" />

@@ -33,7 +33,8 @@
 
 ## 🧑‍💻 LOCAL INSTALLATION & SETUP
 > ⚠️ Make sure to set up the `.env` file.  
-> .env file must contain **MONGODB_URL**, **JWT_SECRET** and **PORT**
+> .env file must contain **MONGODB_URL**, **JWT_SECRET** and **PORT**  
+> Kindly note : If you want to run on your own backend, then you will have to change the api calls in frontend to your custom api
 ```bash
 cd backend        # Move to backend folder
 npm install       # Install required dependencies
